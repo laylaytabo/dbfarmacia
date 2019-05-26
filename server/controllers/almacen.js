@@ -1,11 +1,11 @@
 import model from '../models';
 
-const { almacen } = model
+const { Almacen } = model
 
 class Almacenes{
     static createAlm(req, res){
         const { stock,id_grupodesignado} = req.body
-        return almacen
+        return Almacen
         .create({
             stock,
             id_grupodesignado
@@ -16,7 +16,7 @@ class Almacenes{
           }))
     }
     static verAlm(req, res) {
-        return almacen
+        return Almacen
           .findAll()
           .then(data => res.status(200).send(data));
       }

@@ -1,10 +1,10 @@
 import model from '../models';
  
-const { grupoasig} = model
-class Asignacion {
+const { GrupoDesignado} = model
+class GrupoDesignados {
     static createAsignacion(req,res){
         const { codigo, descripcion } = req.body
-        return grupoasig
+        return GrupoDesignado
         .create({
             codigo,
             descripcion
@@ -15,9 +15,9 @@ class Asignacion {
           }))
     }
     static verAsignacion(req, res) {
-        return grupoasig
+        return GrupoDesignado
           .findAll()
           .then(grupoasig => res.status(200).send(grupoasig));
     }
 }
-export default Asignacion;
+export default GrupoDesignados;

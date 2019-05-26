@@ -1,5 +1,15 @@
+import Users from '../controllers/user';
+import Books from '../controllers/book';
+
+
+////lo nuevo de farmacia
 import Almacenes from '../controllers/almacen';
-import Asignacion from '../controllers/grupodesignado';
+import GrupoDesignados from '../controllers/grupodesignado';
+import Pedidos from '../controllers/pedido';
+import RegMedicamento from '../controllers/regmedicamentos';
+import SuministroHospi from '../controllers/sumunistrohopi';
+import Venta from '../controllers/ventas';
+
 
 export default (app) => {
 
@@ -18,79 +28,40 @@ app.put('/api/books/:bookId', Books.modify); // API route for user to edit a boo
 app.delete('/api/books/:bookId', Books.delete); // API route for user to delete a book
 app.get('/api/idLib/:id', Books.listOne);
 
-//almacen
-app.post('/api/almacen', Almacenes.createAlm);
-app.get('/api/almacen', Almacenes.verAlm);
 
-//grupodesignado
-app.post('/api/grupoA', Asignacion.createAsignacion);
-app.get('/api/gruposA', Asignacion.verAsignacion);
-
-//adjudicacion crud
-app.post('/api/adjudicacion', ActoAdjudicacions.ceateAdjudicacion);
-app.get('/api/adjudicacion', ActoAdjudicacions.verAdjudicacion);
-
-//reg Emergencias
-app.post('/api/emergencia', REGemergencia.createEmergencia);
-app.get('/api/emergencia', REGemergencia.verEmergencia);
-
-//almacen
-app.post('/api/almacen', Almacen.crearAlmacen);
-app.get('/api/almacen', Almacen.verAlmacen);
-
-//distribuciones
-app.post('/api/distribucion', Distribucion.crearDistribucion);
-app.get('/api/distribucion', Distribucion.verDistribuciones);
-
-//ajustes
-app.post('/api/ajusteP', AjustesPositivos.crearAjustesP);
-app.get('/api/ajusteP', AjustesPositivos.verAjusteP);
-
-//ajustes negativos
-app.post('/api/ajusteN', AjustesNegativos.crearAjustesN);
-app.get('/api/ajusteN', AjustesNegativos.verAjusteN);
-
-//Dist 
-app.post('/api/Dist', Distr.crearDist);
-app.get('/api/Dist', Distr.verDist);
-
-//tabla suministros
-app.post('/api/Sum', Suministros.crearSum);
-app.get('/api/Sum', Suministros.verSum);
-
-// ajustes negativos de distribucion
-app.post('/api/AjusteNDIST', AjustesNegativosDIST.crearAjustesNDIST);
-app.get('/api/AjusteNDIST', AjustesNegativosDIST.verAjusteNDIST);
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 // empisea las tablas de almacen
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 //medicamentos
-app.post('/api/medicamento', Medicamento.createMed);
-app.get('/api/medicamento', Medicamento.verMEd);
+app.post('/api/medicamento', RegMedicamento.create);
+app.get('/api/medicamento', RegMedicamento.ver);
 
-//articulos
-app.post('/api/articulos', Articulos.createArt);
-app.get('/api/articulos', Articulos.verArt);
+//pedidos
+app.post('/api/pedido', Pedidos.createPedido);
+app.get('/api/pedido', Pedidos.verPedidos);
 
-//servicio
-app.post('/api/servicio', Servicio.createServicio);
-app.get('/api/servicio', Servicio.verServicio);
+//regmedicamentos'
+app.post('/api/susmedicamento', SuministroHospi.create);
+app.get('/api/susmedicamentos', SuministroHospi.ver);
 
-//asignacion
-app.post('/api/asignacion', Asignacion.createAsignacion);
-app.get('/api/asignacion', Asignacion.verAsignacion);
+//GrupoDesignado
+app.post('/api/asignacion', GrupoDesignados.createAsignacion);
+app.get('/api/asignacion', GrupoDesignados.verAsignacion);
 
 //almacenes
-app.post('/api/Alm', Alm.createAlm);
-app.get('/api/Alm', Alm.verAlm);
+app.post('/api/Alm', Almacenes.createAlm);
+app.get('/api/Alm', Almacenes.verAlm);
 
 //proveedores
 app.post('/api/proveedores', Proveedores.createProveedores);
 app.get('/api/proveedores', Proveedores.verProveedores);
 
+////Ventas
 
+app.post('/api/venta', Venta.create);
+app.get('/api/ventas', Venta.ver);
 
 
 };
