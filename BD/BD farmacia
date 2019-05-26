@@ -1,0 +1,51 @@
+sequelize model:create --name Salas --attributes nombre:string,descripcionSala:string,piso:integer,especialidadID:integer  
+
+sequelize model:create --name Cotizaciones --attributes 
+establecimiento:string,
+farmacia:string,
+gestion:integer,
+busqueda:string,
+reporteTramite:string,
+farmacia:boolean,
+vigente:boolean,
+numSolicitud:integer 
+
+sequelize model:create --name CuadroComparativos --attributes establecimiento:string,farmacia:string,busqueda:string,gestion:integer,vigente:boolean,numSolicitud:integer
+
+sequelize model:create --name actoAdjudicacions --attributes gestion:integer,establecimiento:string,almacen:string,busqueda:string,vigente:boolean,programa:string,numSolicitud:integer 
+
+sequelize model:create --name regEmergencias --attributes establecimiento:string,farmacia:string,gestion:integer,vigente:boolean,busqueda:string,numSolicitud:integer 
+
+sequelize model:create --name almacenamientos --attributes gestion:integer,establecimiento:string,farmacia:string,tipoTransaccion:string,busqueda:string,vigente:boolean,tipoImpresora:string,claseNotas:string,listaAnulados:string
+
+sequelize model:create --name distribuciones --attributes gestion:integer,establecimiento:string,farmacia:string,tipoTransaccion:string,busqueda:string,vigente:boolean,tipoImpresora:string,claseNotas:string,listaAnulados:string
+
+sequelize model:create --name ajustesPositivos --attributes gestion:integer,establecimiento:string,farmacia:string,tipoTransaccion:string,busqueda:string,vigente:boolean,tipoImpresora:string,claseNotas:string,listaAnulados:string
+
+sequelize model:create --name ajustesNegativos --attributes gestion:integer,establecimiento:string,farmacia:string,tipoTransaccion:string,busqueda:string,vigente:boolean,tipoImpresora:string,claseNotas:string,listaAnulados:string
+
+sequelize model:create --name distribucion --attributes gestion:integer,establecimiento:string,farmacia:string,tipoTransaccion:string,busqueda:string,vigente:string,tipoImpresora:string,claseNotas:string,listaAnulados:string
+
+sequelize model:create --name suministrosFracionales --attributes gestion:integer,establecimiento:string,farmacia:string,tipoTransaccion:string,busqueda:string,vigente:boolean,tipoImpresora:string,claseNotas:string,listaAnulados:string
+
+sequelize model:create --name ajustesNegativosDistribucion --attributes gestion:integer,establecimiento:string,farmacia:string,tipoTransaccion:string,busqueda:string,vigente:boolean,tipoImpresora:string,claseNotas:string,listaAnulados:string
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+tablas de almacen
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+sequelize model:create --name MedicamentosInsumos --attributes grupoAsignacion:string,codificacion:string,nombre:string,generico:string,unidadMedida:string,presentacion:string,concentracion:string
+
+sequelize model:create --name articulos --attributes grupoAsignacion:string,codificacion:string,nombre:string,unidadMedida:string
+
+sequelize model:create --name servicio --attributes grupoAsignacion:string,codificacion:string,nombre:string,descripcion:string
+
+sequelize model:create --name asignacioAlmacen --attributes codigo:integer,descripcion:string
+
+sequelize model:create --name almacen --attributes nombre:string,establecimiento:string,distribucionPaciente:string,lapsoR:string,nivleMinimo:string,nivelReserva:string,nivelMaximo:string,periodoR:string,metodoCosteo:string
+
+sequelize model:create --name proveedores --attributes nombreProveedores:string,email:string,direccion:string,telefono:integer,responsableAtencion:string
+
+
+
+
