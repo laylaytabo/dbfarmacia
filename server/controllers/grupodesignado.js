@@ -9,7 +9,8 @@ class GrupoDesignados {
             .then((data)=> {
                 if(data != ""){
                     res.status(400).json({
-                        message : "ya existe ese codigo"
+                        success: false,
+                        message : "Ya existe ese Codigo"
                     })
                 }else{
                     const { codigo, descripcion } = req.body

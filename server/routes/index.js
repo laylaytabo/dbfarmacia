@@ -26,5 +26,7 @@ app.post('/api/GrupoAsigUPDATE/:id', GrupoDesignados.updateGPA); //serv actualiz
 
 //medicamento
 app.post('/api/medicamento', RegMedicamento.createMedicamento);
-app.get('/api/medico', RegMedicamento.verMedicamento)
+app.get('/api/medicamento', RegMedicamento.verMedicamento);
+app.get('/api/OnlyMedicamento/:id', RegMedicamento.onlyMedicamento);
+app.post('/api/updateMedicamento/:id', RegMedicamento.updateMedicamento);
 };
