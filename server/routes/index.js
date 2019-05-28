@@ -29,4 +29,10 @@ app.post('/api/medicamento', RegMedicamento.createMedicamento);
 app.get('/api/medicamento', RegMedicamento.verMedicamento);
 app.get('/api/OnlyMedicamento/:id', RegMedicamento.onlyMedicamento);
 app.post('/api/updateMedicamento/:id', RegMedicamento.updateMedicamento);
+
+//proveedor
+app.post('/api/proveedor',Proveedores.createProveedor);
+app.get('/api/proveedor', Proveedores.verproveedor);
+app.get('/api/OnlyProveedor/:id', Proveedores.onlyProveedor);
+app.post('/api/updateProveedor/:id', Proveedores.updateMedicamento);
 };
