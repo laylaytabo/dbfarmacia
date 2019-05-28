@@ -1,13 +1,17 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const RegMedicamentos = sequelize.define('RegMedicamentos', {
-    codigo: DataTypes.TEXT,
+    grupoAsig: DataTypes.TEXT,
+    codificacion: DataTypes.TEXT,
     nombre: DataTypes.TEXT,
-    generico: DataTypes.TEXT,
-    unidad: DataTypes.INTEGER,
+    generico: DataTypes.STRING,
+    concentracion: DataTypes.STRING,
+    unidadMedida: DataTypes.STRING,
     presentacion: DataTypes.TEXT,
-    consentracion: DataTypes.TEXT,
-    id_grupodesignado: DataTypes.INTEGER
+    fechaLLEgada: DataTypes.DATE,
+    fechaVencimiento: DataTypes.DATE,
+    cantidad: DataTypes.STRING,
+    precio:DataTypes.STRING
   }, {});
   RegMedicamentos.associate = function(models) {
     // associations can be defined here

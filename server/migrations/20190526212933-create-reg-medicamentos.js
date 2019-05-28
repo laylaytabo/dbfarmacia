@@ -8,26 +8,38 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      codigo: {
+      grupoAsig: {
+        type: Sequelize.TEXT
+      },
+      codificacion: {
         type: Sequelize.TEXT
       },
       nombre: {
         type: Sequelize.TEXT
       },
       generico: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
-      unidad: {
-        type: Sequelize.INTEGER
+      concentracion: {
+        type: Sequelize.STRING
+      },
+      unidadMedida: {
+        type: Sequelize.STRING
       },
       presentacion: {
         type: Sequelize.TEXT
       },
-      consentracion: {
-        type: Sequelize.TEXT
+      fechaLLEgada: {
+        type: Sequelize.DATE
       },
-      id_grupodesignado: {
-        type: Sequelize.INTEGER
+      fechaVencimiento: {
+        type: Sequelize.DATE
+      },
+      cantidad: {
+        type: Sequelize.STRING
+      },
+      precio:{
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

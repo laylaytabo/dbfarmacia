@@ -3,24 +3,28 @@ import model from '../models';
 const { RegMedicamentos} = model
 
 class RegMedicamento{
-    static create(req, res){
-        const { codigo,nombre,generico,unidad,presentacion,consentracion,id_grupodesignado} = req.body
+    static createMedicamento(req, res){
+        const { grupoAsig,codificacion,nombre,generico,concentracion,unidadMedida,presentacion,fechaLLEgada,fechaVencimiento,cantidad,precio } = req.body
         return RegMedicamentos
         .create({
-            codigo,
+            grupoAsig,
+            codificacion,
             nombre,
             generico,
-            unidad,
+            concentracion,
+            unidadMedida,
             presentacion,
-            consentracion,
-            id_grupodesignado
+            fechaLLEgada,
+            fechaVencimiento,
+            cantidad,
+            precio
         })
         .then(data => res.status(201).send({
-            message: 'se registro pedido',
+            message: 'se registro Medicamento',
             data
           }))
     }
-    static ver(req, res) {
+    static verMedicamento(req, res) {
         return RegMedicamentos
           .findAll()
           .then(data => res.status(200).send(data));
