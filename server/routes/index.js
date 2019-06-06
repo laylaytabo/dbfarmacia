@@ -35,4 +35,8 @@ app.post('/api/proveedor',Proveedores.createProveedor);
 app.get('/api/proveedor', Proveedores.verproveedor);
 app.get('/api/OnlyProveedor/:id', Proveedores.onlyProveedor);
 app.post('/api/updateProveedor/:id', Proveedores.updateMedicamento);
+
+//pedidos
+app.post('/api/pedido', Pedidos.createPedido);
+app.get('/api/pedido', Pedidos.verPedidos);
 };

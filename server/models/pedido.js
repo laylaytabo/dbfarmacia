@@ -1,9 +1,16 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Pedido = sequelize.define('Pedido', {
-    cantidad: DataTypes.INTEGER,
-    fecha: DataTypes.DATE,
-    descripcion: DataTypes.TEXT,
+    codigoCompra: DataTypes.NUMERIC,
+    boletaPago: DataTypes.STRING,
+    tipoMaterial: DataTypes.STRING,
+    fechaIngreso: DataTypes.STRING,
+    proveedor: DataTypes.TEXT,
+    productosDelPedido: DataTypes.JSON(),
+    Observaciones: DataTypes.TEXT,
+    subTotal: DataTypes.NUMERIC,
+    iva: DataTypes.NUMERIC,
+    total: DataTypes.NUMERIC,
     id_proveedor: DataTypes.INTEGER
   }, {});
   Pedido.associate = function(models) {

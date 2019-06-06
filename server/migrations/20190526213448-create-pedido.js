@@ -8,14 +8,35 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      cantidad: {
-        type: Sequelize.INTEGER
+      codigoCompra: {
+        type: Sequelize.NUMERIC
       },
-      fecha: {
-        type: Sequelize.DATE
+      boletaPago: {
+        type: Sequelize.STRING
       },
-      descripcion: {
+      tipoMaterial: {
+        type: Sequelize.STRING
+      },
+      fechaIngreso: {
+        type: Sequelize.STRING
+      }, 
+      proveedor: {
         type: Sequelize.TEXT
+      },    
+      productosDelPedido: {
+        type: Sequelize.JSON
+      },
+      Observaciones: {
+        type: Sequelize.TEXT
+      },
+      subTotal: {
+        type: Sequelize.NUMERIC
+      },
+      iva: {
+        type: Sequelize.NUMERIC
+      },
+      total: {
+        type: Sequelize.NUMERIC
       },
       id_proveedor: {
         type: Sequelize.INTEGER
