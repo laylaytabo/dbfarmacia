@@ -6,7 +6,7 @@ import RegMedicamento from '../controllers/regmedicamentos';
 import SuministroHospi from '../controllers/sumunistrohopi';
 import Venta from '../controllers/ventas';
 import Proveedores from '../controllers/proveedor';
-
+import Distribuciones from '../controllers/distribuciom'
 
 export default (app) => {
 
@@ -39,4 +39,8 @@ app.post('/api/updateProveedor/:id', Proveedores.updateMedicamento);
 //pedidos
 app.post('/api/pedido', Pedidos.createPedido);
 app.get('/api/pedido', Pedidos.verPedidos);
+
+//distribucion
+app.post('/api/distribucion', Distribuciones.distribucion);
+app.get('/api/distribucion', Distribuciones.listDistribucion);
 };
