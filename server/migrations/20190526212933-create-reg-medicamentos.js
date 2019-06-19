@@ -38,6 +38,9 @@ module.exports = {
       cantidad: {
         type: Sequelize.STRING
       },
+      unidades: {
+        type: Sequelize.STRING
+      },
       precio:{
         type: Sequelize.STRING
       },

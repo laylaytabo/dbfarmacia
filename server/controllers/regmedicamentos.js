@@ -4,7 +4,7 @@ const { RegMedicamentos } = model
 
 class RegMedicamento{
     static createMedicamento(req, res){
-        const { grupoAsig,codificacion,nombre,generico,concentracion,unidadMedida,presentacion,fechaLLEgada,fechaVencimiento,cantidad,precio } = req.body
+        const { grupoAsig,codificacion,nombre,generico,concentracion,unidadMedida,presentacion,fechaLLEgada,fechaVencimiento,cantidad,unidades,precio } = req.body
         return RegMedicamentos
         .create({
             grupoAsig,
@@ -17,6 +17,7 @@ class RegMedicamento{
             fechaLLEgada,
             fechaVencimiento,
             cantidad,
+            unidades,
             precio
         })
         .then(data => res.status(201).send({
@@ -44,7 +45,7 @@ class RegMedicamento{
 
     //serv para actualizar medicamento
     static updateMedicamento(req, res) {
-        const { grupoAsig,codificacion,nombre,generico,concentracion,unidadMedida,presentacion,fechaLLEgada,fechaVencimiento,cantidad,precio } = req.body
+        const { grupoAsig,codificacion,nombre,generico,concentracion,unidadMedida,presentacion,fechaLLEgada,fechaVencimiento,cantidad,unidades,precio } = req.body
         return RegMedicamentos
           .findByPk(req.params.id)
           .then((data) => {
@@ -59,6 +60,7 @@ class RegMedicamento{
                 fechaLLEgada: fechaLLEgada || data.fechaLLEgada,
                 fechaVencimiento: fechaVencimiento || data.fechaVencimiento,
                 cantidad: cantidad || data.cantidad,
+                unidades: unidades || data.unidades,
                 precio: precio || data.precio                      
             })
             .then(update => {
@@ -75,6 +77,7 @@ class RegMedicamento{
                     fechaLLEgada: fechaLLEgada || update.fechaLLEgada,
                     fechaVencimiento: fechaVencimiento || update.fechaVencimiento,
                     cantidad: cantidad || update.cantidad,
+                    unidades: unidades || data.unidades,
                     precio: precio || update.precio     
                 }
               })
@@ -83,5 +86,41 @@ class RegMedicamento{
           })
           .catch(error => res.status(400).send(error));
       }
+
+  //servicio para reducir items segun su id
+  static reduce(req,res){
+    const { id } = req.params;
+    const { unidades } = req.body;
+    RegMedicamentos.findAll({
+      where:{ id:id }
+    })
+    .then((data) => {
+      var reduce = data[0].unidades - unidades ;
+      if(reduce < 0){
+        res.status(200).json({
+          message: " no hay cantidad suficiente para reducir solo hay: ",
+          items:  data[0].unidades
+        })
+      }else{
+        return RegMedicamentos
+      .findByPk(id)
+      .then((data) => {
+        data.update({
+          unidades : reduce || data.reduce 
+        })
+        .then(update => {
+          res.status(200).json({
+            message: 'Se a reducido',
+            data:{
+              unidades : reduce || update.reduce
+            }          
+          })
+        })
+        .catch(error => res.status(400).json(error));
+      })
+      .catch(error => res.status(400).json(error));
+      }      
+   });      
+  }
 }
 export default RegMedicamento;

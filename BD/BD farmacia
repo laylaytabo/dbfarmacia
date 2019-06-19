@@ -46,6 +46,7 @@ sequelize model:create --name almacen --attributes nombre:string,establecimiento
 
 sequelize model:create --name proveedores --attributes nombreProveedores:string,email:string,direccion:string,telefono:integer,responsableAtencion:string
 
+sequelize model:create --name distribuciones --attributes codigo:integer,responsable:text,recibe:text,fechaLlegada:string,productos:json
 
 
 

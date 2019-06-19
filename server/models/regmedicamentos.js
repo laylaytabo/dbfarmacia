@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     fechaLLEgada: DataTypes.DATE,
     fechaVencimiento: DataTypes.DATE,
     cantidad: DataTypes.STRING,
+    unidades: DataTypes.STRING,
     precio:DataTypes.STRING
   }, {});
   RegMedicamentos.associate = function(models) {

@@ -6,6 +6,7 @@ import RegMedicamento from '../controllers/regmedicamentos';
 import SuministroHospi from '../controllers/sumunistrohopi';
 import Venta from '../controllers/ventas';
 import Proveedores from '../controllers/proveedor';
+import Distribucion from '../controllers/distribuciones';
 
 
 export default (app) => {
@@ -29,6 +30,7 @@ app.post('/api/medicamento', RegMedicamento.createMedicamento);
 app.get('/api/medicamento', RegMedicamento.verMedicamento);
 app.get('/api/OnlyMedicamento/:id', RegMedicamento.onlyMedicamento);
 app.post('/api/updateMedicamento/:id', RegMedicamento.updateMedicamento);
+app.post('/api/reduce/:id', RegMedicamento.reduce);// reducir medicamento
 
 //proveedor
 app.post('/api/proveedor',Proveedores.createProveedor);
@@ -39,4 +41,11 @@ app.post('/api/updateProveedor/:id', Proveedores.updateMedicamento);
 //pedidos
 app.post('/api/pedido', Pedidos.createPedido);
 app.get('/api/pedido', Pedidos.verPedidos);
+
+//distribuciones
+app.post('/api/distribucion', Distribucion.createDist);
+app.get('/api/distribucion', Distribucion.verDist);
+app.get('/api/onlyDist/:id', Distribucion.onlyDist)
+app.get('/api/delete/:id', Distribucion.delete);
+
 };
