@@ -49,4 +49,7 @@ sequelize model:create --name proveedores --attributes nombreProveedores:string,
 sequelize model:create --name distribuciones --attributes codigo:integer,responsable:text,recibe:text,fechaLlegada:string,productos:json
 
 
+<><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+distribucion
+sequelize model:create --name distribucion --attributes codigo:integer,responsable:string,recibe:string,fechaLlegada:string
 
