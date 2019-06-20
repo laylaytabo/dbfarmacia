@@ -41,6 +41,8 @@ app.post('/api/updateProveedor/:id', Proveedores.updateMedicamento);
 //pedidos
 app.post('/api/pedido', Pedidos.createPedido);
 app.get('/api/pedido', Pedidos.verPedidos);
+app.get('/api/OnlyPedido/:id', Pedidos.OnlyPedido);
+app.get('/api/deletePedido/:id', Pedidos.deletePedido);
 
 //distribuciones
 app.post('/api/distribucion', Distribucion.createDist);
