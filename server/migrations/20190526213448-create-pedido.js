@@ -39,8 +39,15 @@ module.exports = {
         type: Sequelize.NUMERIC
       },
       id_proveedor: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Proveedors',
+          key: 'id',
+          as: 'id_proveedor',
+        }
       },
+      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

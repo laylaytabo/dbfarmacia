@@ -44,6 +44,15 @@ module.exports = {
       precio:{
         type: Sequelize.STRING
       },
+      id_grupo_desig:{
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'GrupoDesignados',
+          key: 'id',
+          as: 'id_grupo_desig',
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
