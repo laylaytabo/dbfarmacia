@@ -12,7 +12,7 @@ class Pedidos{
           .then((data)=> {
               var idProveedor = data.id
               console.log(idProveedor, "esto es el resultado")
-              const { codigoCompra,boletaPago,tipoMaterial,fechaIngreso,proveedor,productosDelPedido,Observaciones,subTotal,iva,total } = req.body
+              const { codigoCompra,boletaPago,tipoMaterial,fechaIngreso,proveedor,productosDelPedido,ProductosAceptados,Observaciones,subTotal,iva,total } = req.body
               var id_proveedor = idProveedor
               return Pedido
               .create({
@@ -22,6 +22,7 @@ class Pedidos{
                   fechaIngreso,
                   proveedor,
                   productosDelPedido,
+                  ProductosAceptados,
                   Observaciones,
                   subTotal,
                   iva,
@@ -80,6 +81,28 @@ class Pedidos{
         })
         .catch(error => res.status(400).send(error))
     }
+
+  static updatePedido(req, res) {
+    const { ProductosAceptados } = req.body
+    return Pedido
+      .findByPk(req.params.id)
+      .then((data) => {
+        data.update({
+          ProductosAceptados: ProductosAceptados || data.ProductosAceptados              
+        })
+        .then(update => {
+          res.status(200).send({
+            success: true,
+            msg: 'Se actualizo en pedidos',
+            data: {
+              ProductosAceptados: ProductosAceptados || update.ProductosAceptados
+            }
+          })
+        })
+        .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  }
     
 }
 export default Pedidos;

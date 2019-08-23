@@ -53,3 +53,7 @@ sequelize model:create --name distribuciones --attributes codigo:integer,respons
 distribucion
 sequelize model:create --name distribucion --attributes codigo:integer,responsable:string,recibe:string,fechaLlegada:string
 
+cantidadMed
+
+sequelize model:create --name fecha_cantidad --attributes fecha_llegada:string,fehca_vencimineto:string,cantidad_cajas:integer,cantidad_unidad:integer,precio:integer
+

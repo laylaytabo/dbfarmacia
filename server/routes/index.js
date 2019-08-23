@@ -7,6 +7,9 @@ import SuministroHospi from '../controllers/sumunistrohopi';
 import Venta from '../controllers/ventas';
 import Proveedores from '../controllers/proveedor';
 import Distribucion from '../controllers/distribuciones';
+import Fecha_Cantidad from '../controllers/fecha_cantidad';
+
+
 
 
 export default (app) => {
@@ -31,6 +34,7 @@ app.get('/api/medicamento', RegMedicamento.verMedicamento);
 app.get('/api/OnlyMedicamento/:id', RegMedicamento.onlyMedicamento);
 app.post('/api/updateMedicamento/:id', RegMedicamento.updateMedicamento);
 app.post('/api/reduce/:id', RegMedicamento.reduce);// reducir medicamento
+app.post('/api/add_Unidad_update/:id',RegMedicamento.add_Unidad); //actualizar cantidad de RegMedicamento
 
 //proveedor
 app.post('/api/proveedor',Proveedores.createProveedor);
@@ -44,10 +48,17 @@ app.get('/api/pedido', Pedidos.verPedidos);
 app.get('/api/OnlyPedido/:id', Pedidos.OnlyPedido);
 app.get('/api/deletePedido/:id', Pedidos.deletePedido);
 
+app.post('/api/updatePedidod/:id', Pedidos.updatePedido)
+
 //distribuciones
 app.post('/api/distribucion', Distribucion.createDist);
 app.get('/api/distribucion', Distribucion.verDist);
 app.get('/api/onlyDist/:id', Distribucion.onlyDist)
 app.get('/api/delete/:id', Distribucion.delete);
+
+//fecha cantidad
+app.post('/api/fehca_cantidad/:id_medicamento', Fecha_Cantidad.cerateFecha_Cantidad);
+app.get('/api/fecha_cantidad', Fecha_Cantidad.VerFechaCantidad);
+app.get('/api/listMedicamentos/:id_medicamento',Fecha_Cantidad.listMedicamentos)
 
 };

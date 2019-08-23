@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     fechaIngreso: DataTypes.STRING,
     proveedor: DataTypes.TEXT,
     productosDelPedido: DataTypes.JSON(),
+    ProductosAceptados:DataTypes.JSON(),
     Observaciones: DataTypes.TEXT,
     subTotal: DataTypes.NUMERIC,
     iva: DataTypes.NUMERIC,
@@ -15,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Pedido.associate = function(models) {
     // associations can be defined here
+    Pedido.belongsTo(models.Proveedor, {
+      foreignKey: 'id_proveedor',
+      onDelete: 'CASCADE'
+    });
   };
   return Pedido;
 };

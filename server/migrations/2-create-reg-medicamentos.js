@@ -8,9 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      grupoAsig: {
-        type: Sequelize.TEXT
-      },
       codificacion: {
         type: Sequelize.TEXT
       },
@@ -29,20 +26,11 @@ module.exports = {
       presentacion: {
         type: Sequelize.TEXT
       },
-      fechaLLEgada: {
-        type: Sequelize.DATE
-      },
-      fechaVencimiento: {
-        type: Sequelize.DATE
-      },
-      cantidad: {
-        type: Sequelize.STRING
-      },
-      unidades: {
-        type: Sequelize.STRING
-      },
       precio:{
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
+      },
+      unidades:{
+        type: Sequelize.INTEGER
       },
       id_grupo_desig:{
         type: Sequelize.INTEGER,

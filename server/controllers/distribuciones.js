@@ -4,19 +4,49 @@ const { distribuciones } = model
 
 class Distribucion{
     static createDist(req, res){
-        const { codigo,responsable,recibe,fechaLlegada,productos } = req.body
-        return distribuciones
-        .create({
-            codigo,
-            responsable,
-            recibe,
-            fechaLlegada,
-            productos
+      if(isNaN(req.body.codigo) ){
+        console.log("esto es lo de los numeros")
+        res.status(400).json({
+          success: false,
+          msg: "Codigo no puede contener letrar u otro caracter que no sea numero"
         })
-        .then(data => res.status(201).send({
-            message: 'se incerto en distribucion',
-            data
-          }))
+      }else if(req.body.fechaLlegada == ""){
+        res.status(400).json({
+          success: false,
+          msg: "Inserte una fecha por favor"
+        })
+      }else{
+        distribuciones.findAll({
+          where: { codigo: req.body.codigo }
+        })
+        .then((data) => {
+          if(data == "" ){
+            const { codigo,responsable,recibe,fechaLlegada,productos } = req.body
+            return distribuciones
+            .create({
+                codigo,
+                responsable,
+                recibe,
+                fechaLlegada,
+                productos
+            })
+            .then(data => res.status(201).send({
+              success: true,
+              msg: 'Se incerto una distribucion',
+              data
+            }))
+          }else{
+            res.status(400).json({
+              success: false,
+              msg: "Ese codigo ya esta en uso por favor inserte otro codigo"
+            })
+          } 
+            
+        })
+
+        
+      }
+        
     }
     static verDist(req, res) {
         return distribuciones

@@ -6,6 +6,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   GrupoDesignado.associate = function(models) {
     // associations can be defined here
+    GrupoDesignado.hasMany(models.RegMedicamentos, {
+      foreignKey: 'id_grupo_desig',
+    }); 
   };
   return GrupoDesignado;
 };

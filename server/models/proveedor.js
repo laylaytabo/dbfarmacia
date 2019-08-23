@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Proveedor.associate = function(models) {
     // associations can be defined here
+    Proveedor.hasMany(models.Pedido, {
+      foreignKey: 'id_proveedor',
+    });
   };
   return Proveedor;
 };

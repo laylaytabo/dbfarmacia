@@ -26,6 +26,9 @@ module.exports = {
       productosDelPedido: {
         type: Sequelize.JSON
       },
+      ProductosAceptados: {
+        type: Sequelize.JSON
+      },
       Observaciones: {
         type: Sequelize.TEXT
       },
