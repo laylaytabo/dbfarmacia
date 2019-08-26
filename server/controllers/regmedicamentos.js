@@ -10,30 +10,82 @@ class RegMedicamento{
         //attributes: ['id', ['description', 'descripcion']]
       }).then((data) => {
         //console.log(data[0].id)
+        var id_grupo_desig = data[0].id
         if(!data){
           res.status(400).json({
             success: false,
-            msg: "No existe designacion"
+            msg: "No existe Designacion"
           })
         }else{
-          const {codificacion,nombre,generico,concentracion,unidadMedida,presentacion,precio,unidades } = req.body
-          var id_grupo_desig = data[0].id
-          return RegMedicamentos
-          .create({
-              codificacion,
-              nombre,
-              generico,
-              concentracion,
-              unidadMedida,
-              presentacion,
-              precio,
-              unidades,
-              id_grupo_desig
-          })
-          .then(data => res.status(201).send({
-              message: 'se registro Medicamento',
-              data
-          }))
+
+          if(req.body.codificacion == "" || isNaN(req.body.codificacion)){
+            if(req.body.codificacion == ""){
+              res.status(400).json({
+                success : false,
+                msg : "La codificacion no puede estar vacío "
+              })
+            }else if(isNaN(req.body.codificacion)){
+              res.status(400).json({
+                success : false,
+                msg : "La codificacion solo puede contener numeros "
+              })
+            }
+            
+          }else if(!req.body.nombre){
+            res.status(400).json({
+              success : false,
+              msg : "El nombre del medicamento no puede ir vacío"
+            })
+          }else{
+            RegMedicamentos.findAll({
+              where: { nombre: req.body.nombre }
+            }).then((data) => {
+              console.log(data, "  <<<< esto es lo que quiero")
+              if(data != ""){
+                res.status(400).json({
+                  success : false,
+                  msg : "Ya existe ese medicamento"
+                })
+              }else if(req.body.precio || req.body.unidades){
+                RegMedicamentos.findAll({
+                  where: { codificacion : req.body.codificacion }
+                }).then((data) => {
+                  if(data != ""){
+                    res.status(400).json({
+                      success : false,
+                      msg : "Ya existe esa Codificacion"
+                    })
+                  }else{
+                    const {codificacion,nombre,generico,concentracion,unidadMedida,presentacion,precio,unidades } = req.body
+                    
+                    return RegMedicamentos
+                    .create({
+                      codificacion,
+                      nombre,
+                      generico,
+                      concentracion,
+                      unidadMedida,
+                      presentacion,
+                      precio,
+                      unidades,
+                      id_grupo_desig
+                    })
+                    .then(data => res.status(201).send({
+                      success: true,
+                      message: 'se registro Medicamento',
+                      data
+                    }))
+                  }
+                })               
+              }else{
+                res.status(200).json({
+                  success : false,
+                  msg : "Los campos de Precio o unidades no pueden ir vacío"
+                })
+              }
+            })
+          }
+          
         } 
         
         
