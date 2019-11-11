@@ -1,46 +1,123 @@
 import model from '../models';
+const fetch = require('node-fetch');
 
 const { Pedido } = model
 const { Proveedor} = model
 class Pedidos{
     static createPedido(req, res){
-      console.log(req.body.codigoCompra)
-      if(req.body.codigoCompra != ""){
+      console.log(req.body.codigoCompra, "esto es el resultado  12121212123123123123")
+      
+      if (!req.body.proveedor){
+        res.status(400).json({
+          success:false,
+          message:"Inserte nombre del proveedor"
+        })
+      }else{
         Proveedor.findOne({
           where:{ nombre : req.body.proveedor },
           })
           .then((data)=> {
+            if (!data){
+              res.status(400).json({
+                success:false,
+                message:"No existe ese proveedor"
+              })
+            }else{
               var idProveedor = data.id
               console.log(idProveedor, "esto es el resultado")
-              const { codigoCompra,boletaPago,tipoMaterial,fechaIngreso,proveedor,productosDelPedido,ProductosAceptados,Observaciones,subTotal,iva,total } = req.body
-              var id_proveedor = idProveedor
-              return Pedido
-              .create({
-                  codigoCompra,
-                  boletaPago,
-                  tipoMaterial,
-                  fechaIngreso,
-                  proveedor,
-                  productosDelPedido,
-                  ProductosAceptados,
-                  Observaciones,
-                  subTotal,
-                  iva,
-                  total,
-                  id_proveedor
-              })
-              .then(data => res.status(201).send({
-                success: true,
-                message: 'se registro pedido',
-                data
-              })) 
-          }) 
-      }else{
-        res.status(400).json({
-          success: false,
-          message: "Llene codigo por favor"
-        })
+              const { codigoCompra,boletaPago,responsable,fechaIngreso,proveedor,productosDelPedido,ProductosAceptados,Observaciones,subTotal,iva,total,id_personal } = req.body
+              if ( !codigoCompra || isNaN(codigoCompra) || !boletaPago || !responsable || !fechaIngreso ){
+                if (!codigoCompra){
+                  res.status(400).json({
+                    success:false,
+                    message:" LLene el codigo de la compra "
+                  })
+                }else if (isNaN(codigoCompra)){
+                  res.status(400).json({
+                    success:false,
+                    message:"Codigo de compra solo puede contener numeros"
+                  })
+                }else if (!boletaPago){
+                  res.status(400).json({
+                    success:false,
+                    message:"Selecione boleta de pago"
+                  })
+                }else if (!responsable){
+                  res.status(400).json({
+                    success:false,
+                    message:"No se esta mandando el nombre del responsable"
+                  })
+                }else if (!fechaIngreso){
+                  res.status(400).json({
+                    success:false,
+                    message:"fecha es obligatorio"
+                  })
+                }else if (!id_personal){
+                  res.status(400).json({
+                    success:false,
+                    message:"No se esta mandando el id del personal "
+                  })
+                }
+                
+              }else{
+                var id_proveedor = idProveedor
+                return Pedido
+                .findAll({
+                  where:{ codigoCompra : codigoCompra }
+                })
+                .then(data => {
+                  fetch('http://localhost:3600/api/personal/'+id_personal)  // esto es para sacar el token del usuario
+                      .then(resp => resp.json())
+                      .then(resp => {
+                        if(resp == "" || resp.length == 0){
+                          res.status(400).json({
+                            success:false,
+                            message:"Ese personal no existe"
+                          })
+                        }else{
+                          if (data == ""){
+                            return Pedido
+                            .create({
+                                codigoCompra,
+                                boletaPago,
+            
+                                responsable,
+            
+                                fechaIngreso,
+                                proveedor,
+                                productosDelPedido,
+                                ProductosAceptados,
+                                Observaciones,
+                                subTotal,
+                                iva,
+                                total,
+                                id_proveedor,
+                                id_personal
+                            })
+                            .then(data => res.status(201).send({
+                              success: true,
+                              message: 'Se registro pedido',
+                              data
+                            }))                      
+                            }else{
+                            res.status(400).json({
+                              success:false,
+                              message:"Ya existe ese codigo"
+                            })
+                          }
+                        }
+                      })
+                  
+                });
+                
+              }
+              
+            }
+              
+        }) 
       }
+        
+      
       
     }
     //listar los pedidos

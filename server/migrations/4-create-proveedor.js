@@ -23,6 +23,9 @@ module.exports = {
       empresa: {
         type: Sequelize.TEXT
       },
+      id_personal:{
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Pedido = sequelize.define('Pedido', {
     codigoCompra: DataTypes.NUMERIC,
     boletaPago: DataTypes.STRING,
-    tipoMaterial: DataTypes.STRING,
+    responsable: DataTypes.STRING,
     fechaIngreso: DataTypes.STRING,
     proveedor: DataTypes.TEXT,
     productosDelPedido: DataTypes.JSON(),
@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     subTotal: DataTypes.NUMERIC,
     iva: DataTypes.NUMERIC,
     total: DataTypes.NUMERIC,
-    id_proveedor: DataTypes.INTEGER
+    id_proveedor: DataTypes.INTEGER,
+    id_personal:DataTypes.INTEGER
   }, {});
   Pedido.associate = function(models) {
     // associations can be defined here

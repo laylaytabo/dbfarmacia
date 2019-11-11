@@ -8,8 +8,12 @@ module.exports = (sequelize, DataTypes) => {
     unidadMedida: DataTypes.STRING,
     presentacion: DataTypes.TEXT,
     precio: DataTypes.DECIMAL,
+    cantidad_inicial: DataTypes.INTEGER,
+    entradas: DataTypes.INTEGER,
     unidades: DataTypes.INTEGER,
-    id_grupo_desig:DataTypes.INTEGER
+    ventas: DataTypes.INTEGER,
+    id_grupo_desig:DataTypes.INTEGER,
+    id_personal: DataTypes.INTEGER
 
   }, {});
   RegMedicamentos.associate = function(models) {

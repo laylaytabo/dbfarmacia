@@ -1,45 +1,86 @@
 import model from '../models';
- 
+const fetch = require('node-fetch');
+
+
 const { GrupoDesignado } = model
 class GrupoDesignados {
     static createAsignacion(req,res){
-        return GrupoDesignado
-        .findAll()
-        .then((data)=> {
-            
-            for(var i = 0; i < data.length; i++ ){
-                if(data[i].codigo == req.body.codigo){
-                  /*   res.status(400).json({
-                        success: false,
-                        message : "Ya existe ese Codigo"
-                    }) */
-                    return res.json({
-                        success: false,
-                        message : "Ya existe ese Codigo"
-                    })
-                }else if(data[i].descripcion == req.body.descripcion){
-                    return res.json({
-                        success: false,
-                        message : "Ya existe esa Descripcion"
-                    })
-                }
-            }
-            const { codigo, descripcion } = req.body
-                return GrupoDesignado
-                .create({
-                    codigo,
-                    descripcion
+        const { codigo, descripcion,id_personal } = req.body
+        if(!codigo || !descripcion || !id_personal){
+            if(!codigo){
+                res.status(400).json({
+                    success:false,
+                    message: "Inserte un codigo por favor"
                 })
-                .then(data => res.status(201).send({
-                    message: 'Datos Insertados',
-                    data
-                }))
-               /*  return res.json({
-                    success: false,
-                    message : " si paso "
-                }) */
-        });
+            }else if (!descripcion){
+                res.status(400).json({
+                    success:false,
+                    message:"Inserte una descripcion por favor"
+                })
+            }else if (!id_personal){
+                res.status(400).json({
+                    success:false,
+                    message:"El id del personal no se esta mandando"
+                })
+            }
+        }else{
+            fetch('http://localhost:3600/api/personal/'+id_personal)  // esto es para sacar el token del usuario
+            .then(resp => resp.json())
+            .then(resp => {
+                if(resp == "" || resp.length == 0){
+                    res.status(400).json({
+                        success:false,
+                        message:"Ese personal no existe"
+                    })
+                }else{
+                    return GrupoDesignado
+                    .findAll()
+                    .then((data)=> {
+            
+                        for(var i = 0; i < data.length; i++ ){
+                            if(data[i].codigo == req.body.codigo){
+                              /*   res.status(400).json({
+                                    success: false,
+                                    message : "Ya existe ese Codigo"
+                                }) */
+                                return res.json({
+                                    success: false,
+                                    message : "Ya existe ese Codigo"
+                                })
+                            }else if(data[i].descripcion == req.body.descripcion){
+                                return res.json({
+                                    success: false,
+                                    message : "Ya existe esa Descripcion"
+                                })
+                            }
+                        }
+                        
+                        return GrupoDesignado
+                        .create({
+                            codigo,
+                            descripcion,
+                            id_personal
+                        })
+                        .then(data => res.status(201).send({
+                            success:true,
+                            message: 'Datos Insertados',
+                            data
+                        }))
+                        .catch(error => {
+                            console.log(error);
+                            res.status(400).json({
+                                success:false,
+                                message:"No se pude insertar los datos",
+                                error
+                            })
+                        })
+                    });
+                }
+            })
+           
+        }
        
+
     }
     static verAsignacion(req, res) {
         return GrupoDesignado
@@ -47,20 +88,20 @@ class GrupoDesignados {
           .then(grupoasig => res.status(200).send(grupoasig));
     }
      //Servico para mostrar un grupo designacion para actualizar
-     static onlyGPA(req, res){                
-        var id = req.params.id;  
+     static onlyGPA(req, res){
+        var id = req.params.id;
         GrupoDesignado.findAll({
            where: {id: id}
            //attributes: ['id', ['description', 'descripcion']]
          }).then((data) => {
            res.status(200).json(data);
-        });     
+        });
     }
     //servicio para actualizar
     static updateGPA(req, res) {
 
         return GrupoDesignado
-        
+
         .findAll()
         .then((data)=> {
             var msg1,msg2;
@@ -72,7 +113,7 @@ class GrupoDesignados {
 
                 }else if(data[i].descripcion == req.body.descripcion){
 
-                    msg2 = "ya hay esa descripcion"                    
+                    msg2 = "ya hay esa descripcion"
                     break;
 
                 }
@@ -93,21 +134,21 @@ class GrupoDesignados {
                 }
                 msg1 = ""
                 msg2 = ""
-                
-            }else{             
+
+            }else{
                 const { codigo, descripcion } = req.body
                 return GrupoDesignado
                   .findByPk(req.params.id)
                   .then((data) => {
                     data.update({
                         codigo: codigo || data.codigo,
-                        descripcion: descripcion || data.descripcion                    
+                        descripcion: descripcion || data.descripcion
                     })
                     .then(update => {
-                      res.status(200).send({
+                      return res.json({
                         success: true,
                         message: 'Datos Actualizados',
-                        data: {                  
+                        data: {
                             codigo: codigo || dataupdate.codigo,
                             descripcion: descripcion || update.descripcion
                         }
@@ -118,8 +159,8 @@ class GrupoDesignados {
                   .catch(error => res.status(400).send(error));
             }
         });
-        
+
     }
-    
+
 }
 export default GrupoDesignados;

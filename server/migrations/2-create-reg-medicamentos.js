@@ -29,8 +29,17 @@ module.exports = {
       precio:{
         type: Sequelize.DECIMAL
       },
+      cantidad_inicial:{
+        type:Sequelize.INTEGER
+      },
+      entradas:{
+        type:Sequelize.INTEGER
+      },
       unidades:{
         type: Sequelize.INTEGER
+      },
+      ventas:{
+        type:Sequelize.INTEGER
       },
       id_grupo_desig:{
         type: Sequelize.INTEGER,
@@ -40,6 +49,9 @@ module.exports = {
           key: 'id',
           as: 'id_grupo_desig',
         }
+      },
+      id_personal:{
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

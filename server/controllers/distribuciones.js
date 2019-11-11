@@ -10,25 +10,31 @@ class Distribucion{
           success: false,
           msg: "Codigo no puede contener letrar u otro caracter que no sea numero"
         })
-      }else if(req.body.fechaLlegada == ""){
+      }else if(!req.body.fechaLlegada){
         res.status(400).json({
           success: false,
           msg: "Inserte una fecha por favor"
         })
-      }else{
+      }else if ( !req.body.id_personal ){
+        res.status(400).json({
+          success:false,
+          msg: "No se esta mandando el id del personal"
+        })
+      }else {
         distribuciones.findAll({
           where: { codigo: req.body.codigo }
         })
         .then((data) => {
           if(data == "" ){
-            const { codigo,responsable,recibe,fechaLlegada,productos } = req.body
+            const { codigo,responsable,recibe,fechaLlegada,productos, id_personal } = req.body
             return distribuciones
             .create({
                 codigo,
                 responsable,
                 recibe,
                 fechaLlegada,
-                productos
+                productos,
+                id_personal
             })
             .then(data => res.status(201).send({
               success: true,

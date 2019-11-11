@@ -9,10 +9,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       codigo: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       descripcion: {
         type: Sequelize.TEXT
+      },
+      id_personal:{
+        type:Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

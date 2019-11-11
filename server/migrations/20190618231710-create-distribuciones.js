@@ -23,6 +23,9 @@ module.exports = {
       productos: {
         type: Sequelize.JSON
       },
+      id_personal:{
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

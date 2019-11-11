@@ -14,7 +14,7 @@ module.exports = {
       boletaPago: {
         type: Sequelize.STRING
       },
-      tipoMaterial: {
+      responsable: {
         type: Sequelize.STRING
       },
       fechaIngreso: {
@@ -49,6 +49,9 @@ module.exports = {
           key: 'id',
           as: 'id_proveedor',
         }
+      },
+      id_personal:{
+        type: Sequelize.INTEGER
       },
       
       createdAt: {
