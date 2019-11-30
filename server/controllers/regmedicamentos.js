@@ -280,5 +280,8 @@ class RegMedicamento{
           
    });      
   }
+
+  //serv para mostar todos los medicamentos
+  
 }
 export default RegMedicamento;

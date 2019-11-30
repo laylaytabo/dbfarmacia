@@ -1,7 +1,13 @@
 import model from '../models';
+import RegMedicamento from './regmedicamentos';
+
+const sequelize = require('sequelize');
+
+const Op = sequelize.Op;
 
 const { fecha_cantidad } = model
 const { RegMedicamentos } = model
+const { GrupoDesignado } = model
 
 class Fecha_Cantidad{
     static cerateFecha_Cantidad(req,res){
@@ -99,6 +105,36 @@ class Fecha_Cantidad{
             .catch(error => res.status(400).json(error));
             }      
         });      
+    }
+
+    static filter_data_med_grupo(req, res) {      
+        console.log(req.body, "  <<<<<<<<<<<<<<<<<<<<<<<<< saddasd")
+        const { fecha_inicio, fecha_final, id_medicamento }  = req.body
+        if(!fecha_final || !fecha_inicio || ! id_medicamento){
+            res.status(400).json({
+                success:false,
+                msg:"Inserte fecha inicio y fecha final y el personal para poder buscar un rago de fechas"
+            })
+        }else{
+            var _q = fecha_cantidad;
+            _q.findAll({
+                where: {[Op.and]: [{id_medicamento: {[Op.eq]: id_medicamento}}, {createdAt: {[Op.gte]: fecha_inicio }}, {createdAt: {[Op.lte]: fecha_final }}]},
+                include:[{
+                    model: RegMedicamentos, attributes:['id', 'nombre'] 
+                }]
+            })
+            .then(datas => {
+                if(datas == ""){
+                    res.status(400).json({
+                        success:false,
+                        msg:"No hay nada que mostrar"
+                    })
+                }else{
+                    res.status(200).json(datas)
+                }
+            });
+        } 
+        
     }
    
 

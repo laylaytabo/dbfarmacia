@@ -1,9 +1,14 @@
 import model from '../models';
 
+const sequelize = require('sequelize');
+
+const Op = sequelize.Op;
+
 const { distribuciones } = model
 
 class Distribucion{
     static createDist(req, res){
+      console.log(req.body, "  <<<<<<<<<<<<<<<<<<<<<<asdasd")
       if(isNaN(req.body.codigo) ){
         console.log("esto es lo de los numeros")
         res.status(400).json({
@@ -91,6 +96,30 @@ class Distribucion{
         .catch(error => res.status(400).send(error))
     }
 
+    static filter_data_list(req, res) {
+      const { fecha_inicio, fecha_final, id_personal }  = req.body
+      if(!fecha_final || !fecha_inicio || ! id_personal){
+        res.status(400).json({
+            success:false,
+            msg:"Inserte fecha inicio y fecha final y el personal para poder buscar un rago de fechas"
+        })
+      }else{
+        var _q = distribuciones;
+        _q.findAll({
+        where: {[Op.and]: [{id_personal: {[Op.eq]: id_personal}}, {createdAt: {[Op.gte]: fecha_inicio }}, {createdAt: {[Op.lt]: fecha_final }}]},
+        })
+        .then(datas => {
+          if(datas == ""){
+            res.status(400).json({
+                success:false,
+                msg:"No hay nada que mostrar"
+            })
+        }else{
+            res.status(200).json(datas)
+        }
+        });
+      }
+    }
 }
 
 export default Distribucion;

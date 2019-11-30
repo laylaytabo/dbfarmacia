@@ -1,6 +1,8 @@
 import model from '../models';
 const fetch = require('node-fetch');
+const sequelize = require('sequelize');
 
+const Op = sequelize.Op;
 const { Pedido } = model
 const { Proveedor} = model
 class Pedidos{
@@ -122,9 +124,9 @@ class Pedidos{
     }
     //listar los pedidos
     static verPedidos(req, res) {
-        return Pedido
-          .findAll()
-          .then(data => res.status(200).send(data));
+      return Pedido
+      .findAll()
+      .then(data => res.status(200).send(data));
     }
 
     //ver solo un pedido
@@ -179,6 +181,32 @@ class Pedidos{
         .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
+  }
+
+  //listar los pedidos
+  static filter_pedidos_fecha(req, res) {
+    const { fecha_inicio, fecha_final, id_proveedor }  = req.body
+    if(!fecha_final || !fecha_inicio || ! id_proveedor){
+      res.status(400).json({
+          success:false,
+          msg:"Inserte fecha inicio y fecha final y el personal para poder buscar un rago de fechas"
+      })
+    }else{
+      var _q = Pedido;
+      _q.findAll({
+      where: {[Op.and]: [{id_proveedor: {[Op.eq]: id_proveedor}}, {createdAt: {[Op.gte]: fecha_inicio }}, {createdAt: {[Op.lt]: fecha_final }}]},
+      })
+      .then(datas => {
+        if(datas == ""){
+          res.status(400).json({
+              success:false,
+              msg:"No hay nada que mostrar"
+          })
+      }else{
+          res.status(200).json(datas)
+      }
+      });
+    }
   }
     
 }
