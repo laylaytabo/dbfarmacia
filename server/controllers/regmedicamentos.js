@@ -281,7 +281,35 @@ class RegMedicamento{
    });      
   }
 
-  //serv para mostar todos los medicamentos
+    //serv para mostar todos los medicamentos
+    static mostrar_med(req, res) {
+      const { id_grupo } = req.body;
+      if (!id_grupo){
+        res.status(400).json({
+          success:false,
+          msg:"Selecione grupo por favor"
+        })
+      }else{
+        RegMedicamentos.findAll({
+          where:{ id_grupo_desig: id_grupo },
+          include:[{
+            model:GrupoDesignado
+          }]
+          //attributes: ['id', ['description', 'descripcion']]
+        }).then((data) => {
+          if(data == ""){
+            res.status(400).json({
+              success:false,
+              msg:"No hay medicamentos en ese grupo"
+            })
+          }else{
+            res.status(200).json(data);
+          }
+          
+        });  
+      }
+       
+    }
   
 }
 export default RegMedicamento;

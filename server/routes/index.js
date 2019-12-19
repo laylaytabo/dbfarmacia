@@ -28,6 +28,8 @@ export default (app) => {
     app.get('/api/GrupoAsigONLY/:id', GrupoDesignados.onlyGPA); //serv para actualizar
     app.post('/api/GrupoAsigUPDATE/:id', GrupoDesignados.updateGPA); //serv actualizar
 
+    app.get('/api/verAsignacion_data',GrupoDesignados.verAsignacion_data)
+
     //medicamento
     app.post('/api/medicamento', RegMedicamento.createMedicamento);
     app.get('/api/medicamento', RegMedicamento.verMedicamento);
@@ -36,7 +38,7 @@ export default (app) => {
     app.post('/api/reduce/:id', RegMedicamento.reduce);// reducir medicamento
     app.post('/api/add_Unidad_update/:id',RegMedicamento.add_Unidad); //actualizar cantidad de RegMedicamento
 
-    
+    app.post('/api/mostrar_med', RegMedicamento.mostrar_med)    
 
     //proveedor
     app.post('/api/proveedor',Proveedores.createProveedor);

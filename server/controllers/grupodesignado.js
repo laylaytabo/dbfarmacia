@@ -87,6 +87,13 @@ class GrupoDesignados {
           .findAll()
           .then(grupoasig => res.status(200).send(grupoasig));
     }
+    static verAsignacion_data(req, res) {
+        return GrupoDesignado
+          .findAll({
+              attributes:['id','descripcion','codigo']
+          })
+          .then(grupoasig => res.status(200).send(grupoasig));
+    }
      //Servico para mostrar un grupo designacion para actualizar
      static onlyGPA(req, res){
         var id = req.params.id;
