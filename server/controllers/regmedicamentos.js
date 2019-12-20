@@ -158,12 +158,13 @@ class RegMedicamento{
 
     //serv para actualizar medicamento
     static updateMedicamento(req, res) {
-      const { grupoAsig,codificacion,nombre,generico,concentracion,unidadMedida,presentacion,precio,unidades } = req.body
+      const { id_grupo_desig,codificacion,nombre,generico,concentracion,unidadMedida,presentacion,precio,unidades } = req.body
+      
       return RegMedicamentos
         .findByPk(req.params.id)
         .then((data) => {
           data.update({
-            grupoAsig: grupoAsig || data.grupoAsig,
+            id_grupo_desig: id_grupo_desig || data.id_grupo_desig,
             codificacion: codificacion || data.codificacion,
             nombre: nombre || data.nombre,
             generico: generico || data.generico,
@@ -178,7 +179,7 @@ class RegMedicamento{
               success:true,
               msg: 'Se actualizo los datos',
               data: {
-                grupoAsig: grupoAsig || update.grupoAsig,
+                id_grupo_desig: id_grupo_desig || update.id_grupo_desig,
                 codificacion: codificacion || update.codificacion,
                 nombre: nombre || update.nombre ,
                 generico: generico || update.generico,
